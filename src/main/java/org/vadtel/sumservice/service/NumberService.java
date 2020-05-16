@@ -1,6 +1,7 @@
 package org.vadtel.sumservice.service;
 
 import org.vadtel.sumservice.dto.NumberDto;
+import org.vadtel.sumservice.dto.SumOfTwoNumber;
 import org.vadtel.sumservice.dto.SumRequestDto;
 
 public interface NumberService {
@@ -9,6 +10,6 @@ public interface NumberService {
 
     void remove(String name);
 
-    Integer sum(SumRequestDto sumRequestDto);
+    SumOfTwoNumber sum(SumRequestDto sumRequestDto);
 
 }

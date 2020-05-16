@@ -1,6 +1,7 @@
 package org.vadtel.sumservice.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Data;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import lombok.ToString;
 public class SumServiceResponse<T> {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonUnwrapped
     private T body;
 
     private Integer code;

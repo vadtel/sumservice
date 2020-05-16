@@ -8,6 +8,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class SumRequestDto {
-    String first;
-    String second;
+
+    private String first;
+
+    private String second;
 }

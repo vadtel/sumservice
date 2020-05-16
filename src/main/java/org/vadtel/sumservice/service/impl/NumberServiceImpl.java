@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.vadtel.sumservice.dao.NumberRepository;
 import org.vadtel.sumservice.dto.NumberDto;
+import org.vadtel.sumservice.dto.SumOfTwoNumber;
 import org.vadtel.sumservice.dto.SumRequestDto;
 import org.vadtel.sumservice.dto.mapper.NumberMapper;
 import org.vadtel.sumservice.entity.NumberEntity;
@@ -42,10 +43,10 @@ public class NumberServiceImpl implements NumberService {
     }
 
     @Override
-    public Integer sum(SumRequestDto sumRequestDto) {
+    public SumOfTwoNumber sum(SumRequestDto sumRequestDto) {
         Integer numberOne = numberRepository.getNumberByName(sumRequestDto.getFirst()).orElseThrow(ApiExceptionNotFoundInDatabase::new);
         Integer numberTwo = numberRepository.getNumberByName(sumRequestDto.getSecond()).orElseThrow(ApiExceptionNotFoundInDatabase::new);
 
-        return numberOne + numberTwo;
+        return new SumOfTwoNumber(numberOne, numberTwo);
     }
 }
