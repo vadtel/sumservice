@@ -16,7 +16,7 @@ import javax.persistence.*;
 @DynamicUpdate
 @ToString
 @Table(name = "map")
-public class MapEntity {
+public class NumberEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

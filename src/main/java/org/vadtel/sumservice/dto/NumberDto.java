@@ -4,11 +4,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
 @Data
 @ToString
 @NoArgsConstructor
-public class SumTwoNumberDto {
-    String first;
-    String second;
+public class NumberDto {
+
+    private String name;
+
+    private Integer value;
+
 }
