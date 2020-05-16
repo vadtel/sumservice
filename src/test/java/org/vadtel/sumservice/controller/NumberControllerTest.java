@@ -11,10 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
+@SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-@SpringBootTest
 class NumberControllerTest {
 
     @Autowired

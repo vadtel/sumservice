@@ -1,3 +1,4 @@
+drop table if exists map;
 create table map
 (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
