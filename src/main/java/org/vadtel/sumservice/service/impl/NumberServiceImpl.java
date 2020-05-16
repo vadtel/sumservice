@@ -2,7 +2,6 @@ package org.vadtel.sumservice.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.vadtel.sumservice.dao.NumberRepository;
@@ -14,8 +13,7 @@ import org.vadtel.sumservice.exception.ApiExceptionDuplicateEntry;
 import org.vadtel.sumservice.exception.ApiExceptionNotFoundInDatabase;
 import org.vadtel.sumservice.service.NumberService;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -27,15 +25,13 @@ public class NumberServiceImpl implements NumberService {
 
     @Override
     public void add(NumberDto numberDto) {
-        NumberEntity mapEntity = null;
-        try {
-            mapEntity = numberMapper.toEntity(numberDto);
-            numberRepository.save(mapEntity);
-        } catch (DuplicateKeyException e) {
-                throw new ApiExceptionDuplicateEntry();
+        Optional<Integer> numberEntity = numberRepository.getNumberByName(numberDto.getName());
+        if (numberEntity.isPresent()) {
+            throw new ApiExceptionDuplicateEntry();
         }
 
-
+        NumberEntity mapEntity = numberMapper.toEntity(numberDto);
+        numberRepository.save(mapEntity);
     }
 
     @Override

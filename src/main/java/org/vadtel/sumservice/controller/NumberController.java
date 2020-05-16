@@ -11,8 +11,6 @@ import org.vadtel.sumservice.controller.response.ResponseCode;
 import org.vadtel.sumservice.controller.response.SumServiceResponse;
 import org.vadtel.sumservice.dto.NumberDto;
 import org.vadtel.sumservice.dto.SumRequestDto;
-import org.vadtel.sumservice.exception.ApiExceptionDuplicateEntry;
-import org.vadtel.sumservice.exception.ApiExceptionNotFoundInDatabase;
 import org.vadtel.sumservice.service.NumberService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,39 +26,27 @@ public class NumberController {
 
 
     @PostMapping("/add")
-    public SumServiceResponse<Void> add(@RequestBody NumberDto numberDto, HttpServletResponse httpServletResponse) {
-        try {
-            numberService.add(numberDto);
-        } catch (ApiExceptionDuplicateEntry e) {
-            httpServletResponse.setStatus(503);
-            return new SumServiceResponse<>(ResponseCode.DUPLICATE_ENTRY);
-        } catch (Exception e) {
-            httpServletResponse.setStatus(503);
-            return new SumServiceResponse<>(ResponseCode.OTHER_ERROR);
-        }
+    public SumServiceResponse<Void> add(@RequestBody NumberDto numberDto,
+                                        HttpServletResponse httpServletResponse) {
+
+        numberService.add(numberDto);
         httpServletResponse.setStatus(200);
         return new SumServiceResponse<>(ResponseCode.OK);
     }
 
     @PostMapping("/remove")
-    public SumServiceResponse<Void> remove(@RequestBody NumberDto numberDto) {
+    public SumServiceResponse<Void> remove(@RequestBody NumberDto numberDto,
+                                           HttpServletResponse httpServletResponse) {
 
         numberService.remove(numberDto.getName());
+        httpServletResponse.setStatus(200);
         return new SumServiceResponse<>(ResponseCode.OK);
     }
 
     @PostMapping("/sum")
-    public SumServiceResponse<Integer> sum(@RequestBody SumRequestDto sumRequestDto, HttpServletResponse httpServletResponse) {
-        Integer sum = null;
-        try {
-            sum = numberService.sum(sumRequestDto);
-        } catch (ApiExceptionNotFoundInDatabase e) {
-            httpServletResponse.setStatus(404);
-            return new SumServiceResponse<>(ResponseCode.NUMBER_NOT_FOUND);
-        } catch (Exception e) {
-            httpServletResponse.setStatus(503);
-            return new SumServiceResponse<>(ResponseCode.OTHER_ERROR);
-        }
+    public SumServiceResponse<Integer> sum(@RequestBody SumRequestDto sumRequestDto,
+                                           HttpServletResponse httpServletResponse) {
+        Integer sum = numberService.sum(sumRequestDto);
         httpServletResponse.setStatus(200);
         return new SumServiceResponse<>(sum, ResponseCode.OK);
     }
