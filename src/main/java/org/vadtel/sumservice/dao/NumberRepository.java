@@ -11,10 +11,8 @@ import java.util.Optional;
 @Repository
 public interface NumberRepository extends JpaRepository<NumberEntity, Integer> {
 
-    @Query(
-            value = "SELECT value FROM map WHERE name = :name",
-            nativeQuery = true
-    )
+    @Query(value = "SELECT value FROM map WHERE name = :name",
+            nativeQuery = true)
     Optional<Integer> getNumberByName(@Param("name") String name);
 
     Optional<NumberEntity> getNumberEntitiesByName(String name);
