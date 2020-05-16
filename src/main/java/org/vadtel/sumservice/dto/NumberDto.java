@@ -1,12 +1,12 @@
 package org.vadtel.sumservice.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class NumberDto {
 
     private String name;

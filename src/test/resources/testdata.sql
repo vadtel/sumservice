@@ -1,15 +1,8 @@
-drop schema if exists `sum-service`;
-
-create schema `sum-service`
-    character set `utf8`;
-
-use `sum-service`;
-
-create table `map`
+create table map
 (
-    `id` integer primary key not null auto_increment,
-    `name`  varchar(24) not null unique,
-    `value` integer not null
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name  varchar(24) not null unique,
+    value integer not null
 );
 
 -- ---

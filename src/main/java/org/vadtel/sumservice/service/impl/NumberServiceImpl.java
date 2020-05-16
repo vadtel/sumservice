@@ -26,26 +26,29 @@ public class NumberServiceImpl implements NumberService {
 
     @Override
     public void add(NumberDto numberDto) {
-        Optional<Integer> numberEntity = numberRepository.getNumberByName(numberDto.getName());
+        Optional<Integer> numberEntity = numberRepository.findValueByName(numberDto.getName());
         if (numberEntity.isPresent()) {
             throw new ApiExceptionDuplicateEntry();
         }
 
         NumberEntity mapEntity = numberMapper.toEntity(numberDto);
         numberRepository.save(mapEntity);
+
     }
 
     @Override
     public void remove(String name) {
-        NumberEntity numberEntity = numberRepository.getNumberEntitiesByName(name).orElseThrow(ApiExceptionNotFoundInDatabase::new);
+
+        NumberEntity numberEntity = numberRepository.findByName(name).orElseThrow(ApiExceptionNotFoundInDatabase::new);
+
 
         numberRepository.delete(numberEntity);
     }
 
     @Override
     public SumOfTwoNumber sum(SumRequestDto sumRequestDto) {
-        Integer numberOne = numberRepository.getNumberByName(sumRequestDto.getFirst()).orElseThrow(ApiExceptionNotFoundInDatabase::new);
-        Integer numberTwo = numberRepository.getNumberByName(sumRequestDto.getSecond()).orElseThrow(ApiExceptionNotFoundInDatabase::new);
+        Integer numberOne = numberRepository.findValueByName(sumRequestDto.getFirst()).orElseThrow(ApiExceptionNotFoundInDatabase::new);
+        Integer numberTwo = numberRepository.findValueByName(sumRequestDto.getSecond()).orElseThrow(ApiExceptionNotFoundInDatabase::new);
 
         return new SumOfTwoNumber(numberOne, numberTwo);
     }
